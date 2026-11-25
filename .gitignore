@@ -1,0 +1,55 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Datos locales de la app ###
+*.db
+
+### Herramientas descargadas para el instalador (WiX portable) y su resultado ###
+tools/
+dist/
+
+### PDF reales del usuario para la prueba de corpus (pueden tener datos personales) ###
+corpus-pdf/*
+!corpus-pdf/LEEME.txt
+
+### Archivos temporales de Word (~$...)
+~$*
+
+.idea/
+docs/referencia/
+~$*
+
+docs/entrega/generador/
+docs/entrega/anterior/
+docs/informe-para-revision.md

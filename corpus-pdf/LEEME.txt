@@ -1,0 +1,19 @@
+CARPETA corpus-pdf  (punto 9 de la versión 1.0.1)
+=================================================
+Pon aquí PDF REALES (tuyos, de trámites, tesis, facturas, escaneados...) para probar PDF Listo con ellos.
+Puedes usar subcarpetas.
+
+Esta carpeta NO se sube a git (está en .gitignore): puede tener datos personales.
+Solo este archivo LEEME.txt queda en el repositorio.
+
+Cómo probar:
+    .\mvnw.cmd -o test -Dtest=CorpusTest
+
+Cada PDF pasa, sobre una copia, por: rotar, reorganizar, numerar, marca de agua, tamaño A4, encabezado y pie,
+limpiar metadatos, unir, comprimir, extraer una página, OCR (si tiene páginas sin texto) y tachar los datos
+sensibles que la app marca sola. Cada resultado se verifica releyéndolo y se exige «Cumple».
+
+El informe queda en target\corpus-informe.txt (una línea por PDF y operación). Los archivos de prueba quedan en
+target\corpus-trabajo\ (se borran con «mvnw clean»). El original nunca se modifica.
+
+Un PDF con contraseña para abrir se informa como «no probado».

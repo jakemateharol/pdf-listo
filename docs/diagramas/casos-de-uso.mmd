@@ -1,0 +1,31 @@
+%% Casos de uso de PDF Listo (Mermaid no tiene diagrama UML de casos de uso: se aproxima con flowchart).
+%% Version dibujada en notacion UML: casos-de-uso.svg
+flowchart LR
+    U(("Usuario"))
+    LO(("LibreOffice<br/>(opcional)"))
+    subgraph S["Sistema PDF Listo"]
+        A(["Abrir y ver PDF"])
+        P(["Pedir con palabras"])
+        O(["Organizar páginas"])
+        C(["Comprimir, numerar, marca de agua"])
+        T(["Tachar datos sensibles"])
+        M(["Proteger y limpiar metadatos"])
+        N(["Anotar y firmar"])
+        F(["Llenar formulario"])
+        R(["Hacer buscable (OCR)"])
+        E(["Validar perfil de entrega"])
+        RE(["Usar o aprender receta"])
+        FA(["Leer facturas a Excel"])
+        CV(["Convertir (imágenes, texto, Word)"])
+        D(["Deshacer / recuperar trabajo"])
+        G(["Guardar copia"])
+        K(["Comprobar componentes"])
+        VP(["Ver plan antes de actuar"])
+        VR(["Verificar resultado"])
+    end
+    U --- A & P & O & C & T & M & N & F & R & E & RE & FA & CV & D & G & K
+    P -. include .-> VP
+    P -. include .-> VR
+    T -. include .-> VR
+    G -. include .-> VR
+    CV -.- LO

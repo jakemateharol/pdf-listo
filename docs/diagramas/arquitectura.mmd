@@ -1,0 +1,41 @@
+%% Arquitectura de PDF Listo (Mermaid). Version dibujada: arquitectura.svg
+flowchart TB
+    subgraph UI["1. Interfaz (JavaFX + AtlantaFX, FXML)"]
+        MC["MainController<br/>visor, miniaturas, atajos"]
+        PAN["Paneles<br/>Pedido · Anotar · Formulario<br/>Entrega · Tachado · Historial"]
+        MEN["Herramientas · Convertir · Ayuda<br/>Bienvenida · VentanaFacturas"]
+    end
+    subgraph LOG["2. Lógica (Spring, inyección de dependencias)"]
+        INT["interprete<br/>InterpretePedidos → Paso → EjecutorPlan"]
+        OPE["operaciones<br/>MotorPdf + OperacionPdf"]
+        EDI["edicion<br/>SesionEdicion (versiones), Recuperacion"]
+        VER["verificacion<br/>Verificador → InformeVerificacion"]
+        PRI["privacidad<br/>DetectorDatos, Tachar, VerificadorTachado"]
+        OTR["anotaciones · formularios · ocr<br/>facturas · conversiones · entrega · sistema"]
+        PDF["pdf<br/>PdfService, DocumentoPdf, EscrituraSegura"]
+    end
+    subgraph LIB["3. Motores (dentro de la app)"]
+        PB["Apache PDFBox 3"]
+        TE["Tesseract 5 (Tess4J)"]
+        ZX["ZXing (QR)"]
+        OP["OpenPDF · Apache POI"]
+        LO["LibreOffice (opcional, externo)"]
+    end
+    subgraph DAT["4. Datos (en el equipo)"]
+        DB[("SQLite pdflisto.db<br/>historial, recetas, perfiles")]
+        AD["%APPDATA%\PDFListo<br/>config, logs, trabajo, firmas"]
+        AR["Archivos del usuario<br/>original solo lectura → archivo nuevo"]
+    end
+    UI --> LOG
+    INT --> OPE
+    OPE --> EDI
+    OPE --> VER
+    LOG --> PDF
+    PDF --> PB
+    OTR --> TE
+    OTR --> ZX
+    VER --> OP
+    OTR -.-> LO
+    EDI --> AD
+    LOG --> DB
+    PDF --> AR

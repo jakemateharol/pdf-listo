@@ -1,0 +1,16 @@
+PDF Listo 1.0
+
+PDF Listo es un editor de PDF que funciona sin internet. Tus archivos nunca
+salen de este equipo: la aplicacion no envia datos a ningun servidor.
+
+- El archivo original nunca se modifica: todo resultado es un archivo nuevo.
+- Los datos de la aplicacion (historial, recetas, configuracion) se guardan en
+  %APPDATA%\PDFListo y puedes borrarlos cuando quieras.
+
+PDF Listo incluye bibliotecas de codigo abierto (Apache PDFBox, Tesseract OCR,
+ZXing, JavaFX, AtlantaFX, Spring Boot, SQLite, entre otras) y un entorno de Java
+(OpenJDK). Cada una conserva su propia licencia; la lista completa esta en
+Ayuda > Acerca de PDF Listo.
+
+Se entrega "tal cual", sin garantias. Revisa siempre el resultado antes de
+entregar un documento importante (la app te ayuda con su verificacion).

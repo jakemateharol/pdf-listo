@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de usuario — PDF Listo</title>
+<style>
+  :root {
+    --fondo: #ffffff; --texto: #1f2328; --tenue: #59636e; --borde: #d1d9e0;
+    --acento: #0969da; --suave: #f6f8fa; --aviso: #fff8c5; --aviso-borde: #d4a72c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #0d1117; --texto: #e6edf3; --tenue: #9198a1; --borde: #3d444d;
+      --acento: #4493f8; --suave: #151b23; --aviso: #2e2a1a; --aviso-borde: #9e6a03;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fondo); color: var(--texto);
+    font: 16px/1.6 "Segoe UI", system-ui, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 2rem; margin: 0 0 4px; }
+  h2 { font-size: 1.4rem; margin: 48px 0 8px; padding-top: 8px; border-top: 1px solid var(--borde); }
+  h3 { font-size: 1.1rem; margin: 24px 0 4px; }
+  a { color: var(--acento); }
+  .subtitulo { color: var(--tenue); margin: 0 0 24px; }
+  nav { background: var(--suave); border: 1px solid var(--borde); border-radius: 10px; padding: 12px 20px; }
+  nav ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+  figure { margin: 16px 0 24px; }
+  figure img { width: 100%; height: auto; border: 1px solid var(--borde); border-radius: 8px; }
+  figcaption { color: var(--tenue); font-size: .9rem; margin-top: 4px; }
+  .nota { background: var(--aviso); border-left: 4px solid var(--aviso-borde); padding: 10px 14px; border-radius: 6px; }
+  kbd { border: 1px solid var(--borde); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px;
+        font: .85rem Consolas, monospace; background: var(--suave); }
+  table { border-collapse: collapse; width: 100%; margin: 8px 0 16px; }
+  th, td { border: 1px solid var(--borde); padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--suave); }
+  code { font-family: Consolas, monospace; background: var(--suave); padding: 0 4px; border-radius: 4px; }
+  @media (max-width: 600px) { nav ol { columns: 1; } }
+</style>
+</head>
+<body>
+<main>
+<h1>PDF Listo — Manual de usuario</h1>
+<p class="subtitulo">Versión 1.0 · Editor de PDF que funciona sin internet</p>
+
+<nav>
+<ol>
+  <li><a href="#que-es">Qué es PDF Listo</a></li>
+  <li><a href="#instalar">Instalar y abrir</a></li>
+  <li><a href="#ventana">La ventana</a></li>
+  <li><a href="#pedido">Pedir con palabras</a></li>
+  <li><a href="#verificacion">Verificación</a></li>
+  <li><a href="#paginas">Páginas y herramientas</a></li>
+  <li><a href="#guardar">Guardar, deshacer y recuperar</a></li>
+  <li><a href="#tachado">Privacidad y tachado</a></li>
+  <li><a href="#anotar">Anotar y firmar</a></li>
+  <li><a href="#formulario">Formularios</a></li>
+  <li><a href="#ocr">Escaneados (OCR)</a></li>
+  <li><a href="#entrega">Perfiles, recetas y facturas</a></li>
+  <li><a href="#convertir">Convertir</a></li>
+  <li><a href="#ayuda">Ayuda y componentes</a></li>
+  <li><a href="#atajos">Atajos de teclado</a></li>
+  <li><a href="#problemas">Problemas frecuentes</a></li>
+</ol>
+</nav>
+
+<h2 id="que-es">1. Qué es PDF Listo</h2>
+<p>PDF Listo es un editor de PDF para Windows que <strong>funciona sin internet</strong>: tus archivos nunca salen de tu
+computadora. Tiene tres ideas centrales:</p>
+<ul>
+  <li><strong>Pides con palabras</strong>, por ejemplo «une, comprime a menos de 2 MB y numera», y la app te muestra
+    un <strong>plan</strong> antes de hacer nada.</li>
+  <li><strong>Trabaja sobre una copia.</strong> El archivo original nunca se modifica.</li>
+  <li><strong>Verifica el resultado</strong> volviendo a leer el archivo final, y te dice si cumple lo que pediste.</li>
+</ul>
+
+<h2 id="instalar">2. Instalar y abrir</h2>
+<ul>
+  <li><strong>Con instalador:</strong> ejecuta <code>PDFListo-1.0.0.exe</code>. Se instala solo para tu usuario (no pide
+    permisos de administrador) y crea un acceso en el menú Inicio. Trae su propio Java: no hace falta instalar nada más.</li>
+  <li><strong>Versión portable:</strong> descomprime <code>PDFListo-1.0.0-portable.zip</code> y abre
+    <code>PDF Listo.exe</code>. Sirve para llevarla en una memoria USB.</li>
+  <li>Para abrir un PDF: pulsa <strong>Abrir PDF</strong>, arrástralo a la ventana o elígelo en <strong>Recientes</strong>.
+    Puedes tener varios PDF abiertos y cambiar entre ellos con la lista de documentos.</li>
+</ul>
+<p>La primera vez aparece un recorrido de bienvenida de 5 pantallas. Puedes verlo otra vez en
+<strong>Ayuda (?) → Recorrido de bienvenida</strong>.</p>
+<figure><img src="capturas/01-bienvenida.png" alt="Pantalla de bienvenida"><figcaption>Bienvenida la primera vez que se abre la app.</figcaption></figure>
+
+<h2 id="ventana">3. La ventana</h2>
+<figure><img src="capturas/03-documento-abierto.png" alt="Ventana con un PDF abierto"><figcaption>Un PDF abierto: miniaturas a la izquierda, visor al centro y paneles a la derecha.</figcaption></figure>
+<ul>
+  <li><strong>Barra superior:</strong> deshacer/rehacer, <em>Herramientas</em>, <em>Convertir</em>, <em>Recientes</em>,
+    <em>Abrir PDF</em>, <em>Guardar copia</em>, modo claro/oscuro y <em>Ayuda (?)</em>. En pantallas angostas algunos
+    botones se muestran solo con su ícono: al pasar el ratón encima aparece su nombre.</li>
+  <li><strong>Izquierda:</strong> miniaturas de las páginas (arrastra para reordenar) y marcadores del documento.</li>
+  <li><strong>Centro:</strong> el visor, con zoom, «Ajustar a ancho», pantalla completa y búsqueda de texto.</li>
+  <li><strong>Derecha:</strong> las pestañas <em>Pedido</em>, <em>Anotar</em>, <em>Formulario</em>, <em>Entrega</em>,
+    <em>Tachado</em> e <em>Historial</em>.</li>
+</ul>
+
+<h2 id="pedido">4. Pedir con palabras (pestaña Pedido)</h2>
+<p>Escribe lo que necesitas y pulsa <kbd>Enter</kbd> o <strong>Ver plan</strong>. También puedes tocar uno de los
+ejemplos. Algunas frases que entiende:</p>
+<table>
+  <tr><th>Frase</th><th>Qué hace</th></tr>
+  <tr><td>comprime a menos de 2 MB</td><td>Prueba niveles de compresión, de suave a fuerte, y elige el primero que cumple.</td></tr>
+  <tr><td>numera las páginas desde la 3</td><td>Pone números abajo, al centro, desde la página 3.</td></tr>
+  <tr><td>une, comprime a menos de 2 MB y numera</td><td>Une con los otros PDF abiertos, comprime y numera.</td></tr>
+  <tr><td>marca de agua CONFIDENCIAL</td><td>Agrega el texto en diagonal en todas las páginas.</td></tr>
+  <tr><td>elimina la última página / rota la página 2</td><td>Operaciones de páginas.</td></tr>
+  <tr><td>pásalo a A4 · quita los metadatos · hazlo buscable</td><td>Tamaño de hoja, limpieza de datos ocultos, OCR.</td></tr>
+</table>
+<figure><img src="capturas/04-plan.png" alt="Plan propuesto"><figcaption>El plan muestra cada paso, en orden, y lo que se espera al final. Puedes quitar pasos con la ✕.</figcaption></figure>
+<p>Si falta un dato, la app <strong>pregunta</strong> en vez de adivinar. Si la frase pide algo que no se hace con un plan
+(por ejemplo tachar o firmar), te dice en qué pestaña está. Pulsa <strong>Aprobar y ejecutar</strong> para aplicar el plan
+o <strong>Guardar como receta</strong> para reutilizarlo.</p>
+<figure><img src="capturas/05-antes-despues.png" alt="Tarjeta antes y después"><figcaption>Al terminar se ve una tarjeta «antes / después» con páginas y peso. «Deshacer» vuelve atrás.</figcaption></figure>
+
+<h2 id="verificacion">5. Verificación</h2>
+<p>Después de cada pedido, PDF Listo <strong>vuelve a abrir el resultado</strong> y comprueba: que se abre bien, el peso,
+el número de páginas, que cada número de página esté en el margen pedido, la marca de agua, si el texto se puede buscar,
+si quedan datos sensibles, metadatos y contraseña.</p>
+<figure><img src="capturas/06-verificacion.png" alt="Informe de verificación"><figcaption>«Cumple» en verde, o «Revisar» en amarillo con la explicación de qué falló.</figcaption></figure>
+<p>Con <strong>Exportar informe PDF</strong> obtienes el informe como documento, para adjuntarlo o imprimirlo.
+<strong>Verificar documento actual</strong> revisa el PDF tal como está, sin cambiarlo.</p>
+
+<h2 id="paginas">6. Páginas y herramientas</h2>
+<ul>
+  <li><strong>Miniaturas:</strong> elige una o varias (<kbd>Ctrl</kbd> o <kbd>Mayús</kbd> + clic) y usa los botones: rotar,
+    subir, bajar, duplicar, extraer a un PDF nuevo y eliminar (<kbd>Supr</kbd>). También puedes arrastrarlas.</li>
+  <li><strong>Herramientas:</strong> Unir PDF, Dividir, Extraer páginas, Comprimir (niveles o «menos de X MB»), Numerar
+    páginas, Marca de agua, Encabezado y pie (con {pagina}, {total}, {fecha}, {archivo}), Tamaño de página (A4 / Carta),
+    Reconocer texto (OCR) y Leer facturas (QR) a Excel.</li>
+  <li>Las operaciones largas muestran una barra de progreso con <strong>Cancelar</strong>.</li>
+</ul>
+
+<h2 id="guardar">7. Guardar, deshacer y recuperar</h2>
+<ul>
+  <li>Cada cambio crea una <em>versión</em> nueva. <kbd>Ctrl</kbd>+<kbd>Z</kbd> deshace y <kbd>Ctrl</kbd>+<kbd>Y</kbd> rehace,
+    sin límite práctico.</li>
+  <li><strong>Guardar copia</strong> (<kbd>Ctrl</kbd>+<kbd>S</kbd>) crea un archivo <em>nuevo</em>; el original no se toca.
+    El nombre sugerido sigue el patrón de la pestaña Entrega (por defecto «nombre (editado)»).</li>
+  <li>Antes de entregar el archivo, la app lo vuelve a abrir para comprobar que no esté dañado.</li>
+  <li>Si la app se cierra de golpe (corte de luz, por ejemplo), al volver a abrirla te ofrece <strong>recuperar</strong>
+    el trabajo sin guardar. Las contraseñas no se guardan en disco: se te volverán a pedir.</li>
+  <li>La pestaña <strong>Historial</strong> guarda lo que hiciste; con <strong>Repetir</strong> aplicas el mismo pedido a otro PDF.</li>
+</ul>
+
+<h2 id="tachado">8. Privacidad y tachado (pestaña Tachado)</h2>
+<p><strong>Buscar datos sensibles</strong> encuentra DNI, RUC (validando su dígito verificador), celulares, correos, cuentas,
+CCI y direcciones. Los que no son seguros aparecen como «Posible» y sin marcar. Revisa la lista: lo marcado se ve en rojo
+en el documento. También puedes dibujar áreas a mano y crear reglas propias (botón de ajustes).</p>
+<figure><img src="capturas/09-tachado.png" alt="Datos sensibles encontrados"><figcaption>El número que no tiene la palabra «DNI» cerca queda como «Posible» y sin marcar.</figcaption></figure>
+<p class="nota"><strong>Tachar y verificar</strong> borra el dato del archivo (no solo lo tapa con un recuadro negro) y luego
+relee el resultado. Si quedara algo recuperable, la app <strong>no</strong> lo declara seguro. Las páginas tachadas se
+convierten en imagen con texto invisible encima: pesan más y pierden los enlaces.</p>
+<p>En <strong>Privacidad del archivo</strong> puedes ver un informe de privacidad y <strong>limpiar los metadatos</strong> (autor,
+programa, fechas). En <strong>Contraseña</strong> puedes poner o quitar la contraseña y los permisos (imprimir, copiar).
+Todo lo delicado pide confirmación.</p>
+
+<h2 id="anotar">9. Anotar y firmar (pestaña Anotar)</h2>
+<figure><img src="capturas/07-anotar.png" alt="Pestaña Anotar"><figcaption>Herramientas de anotación, colores, grosor y tamaño de letra.</figcaption></figure>
+<ul>
+  <li>Resaltar, subrayar, tachar texto, notas, rectángulos, círculos, flechas, dibujo libre, texto, imagen, firma, sello
+    y fecha.</li>
+  <li>Lo que dibujas es un <em>borrador</em> hasta que pulsas <strong>Aplicar</strong>; <strong>Descartar</strong> lo quita.</li>
+  <li>Resaltados, notas y formas quedan como anotaciones PDF reales (otros lectores las muestran y editan). Texto, imagen,
+    firma y sello quedan fijos en la página.</li>
+  <li><strong>Firma:</strong> dibujada, escrita o desde una imagen. Se guarda en tu biblioteca de firmas junto con su última
+    posición. Es una firma <em>visual</em>, no una firma digital con certificado.</li>
+</ul>
+
+<h2 id="formulario">10. Formularios (pestaña Formulario)</h2>
+<figure><img src="capturas/10-formulario.png" alt="Formulario"><figcaption>Los campos del PDF aparecen como casillas para llenar; el ojo muestra dónde está cada uno.</figcaption></figure>
+<p>Llena los campos y pulsa <strong>Guardar formulario</strong>. Si marcas «Aplanar al guardar», los campos quedan fijos y ya no se
+pueden editar. Los formularios XFA (Adobe LiveCycle) no se pueden llenar; la app lo avisa.</p>
+
+<h2 id="ocr">11. Escaneados (OCR)</h2>
+<p>Cuando abres un PDF escaneado (solo imágenes), la app te avisa. Con <strong>Herramientas → Reconocer texto (OCR)</strong>
+se agrega una capa de texto invisible: el PDF se ve igual, pero se puede buscar, copiar y revisar sus datos sensibles.</p>
+<figure><img src="capturas/11-ocr.png" alt="Reconocer texto"><figcaption>Elige el idioma y, si hace falta, las mejoras del escaneo.</figcaption></figure>
+<p>Mejoras opcionales: enderezar páginas torcidas, limpiar bordes oscuros y mejorar el contraste (la página pasa a escala de
+grises). El OCR tarda unos segundos por página y puede confundir letras en escaneos borrosos o con letra a mano.
+Las páginas escaneadas de costado o de cabeza se detectan y se ponen derechas solas (opción «Poner derechas las páginas
+giradas», activada por defecto); el aviso final dice cuáles se giraron.</p>
+
+<h2 id="entrega">12. Perfiles, recetas y facturas (pestaña Entrega)</h2>
+<figure><img src="capturas/08-entrega.png" alt="Pestaña Entrega"><figcaption>Perfil de entrega, recetas, facturas y nombre al guardar.</figcaption></figure>
+<ul>
+  <li><strong>Perfil de entrega:</strong> reglas de un trámite (tesis, trámite, licitación… o uno propio): tamaño de hoja,
+    numeración, peso máximo, texto buscable, sin contraseña. <strong>Validar</strong> dice qué cumple y qué no;
+    <strong>Corregir…</strong> propone un plan para arreglarlo.</li>
+  <li><strong>Recetas:</strong> combinaciones de pasos que se aplican con un clic. Si repites la misma combinación 3 veces,
+    la app te ofrece guardarla (tú decides).</li>
+  <li><strong>Facturas electrónicas:</strong> lee el código QR de muchas facturas o boletas a la vez, también escaneadas.
+    Valida el IGV, el RUC, la fecha y los duplicados, y crea un Excel con fórmulas y una hoja de resumen. Solo funciona con
+    comprobantes que tienen QR; el QR no trae el nombre del proveedor ni los ítems.</li>
+  <li><strong>Nombre al guardar:</strong> patrón con {nombre}, {fecha}, {hora}, {perfil} y {paginas}.</li>
+</ul>
+
+<h2 id="convertir">13. Convertir</h2>
+<p>El botón <strong>Convertir</strong> de la barra superior ofrece:</p>
+<ul>
+  <li><strong>Hacia PDF</strong> (no necesitan un PDF abierto; el resultado se abre solo): imágenes JPG/PNG a PDF (por
+    ejemplo, fotos de un documento tomadas con el celular; puedes ordenarlas), texto (.txt) a PDF y Word a PDF.</li>
+  <li><strong>Desde el PDF abierto:</strong> PDF a imágenes (PNG o JPG, 150 o 300 dpi), PDF a texto (.txt) y extraer las
+    imágenes que contiene.</li>
+</ul>
+<p class="nota">«Word a PDF» usa <strong>LibreOffice</strong> (gratuito, de libreoffice.org). Si no está instalado, la opción
+aparece desactivada y todo lo demás funciona igual.</p>
+
+<h2 id="ayuda">14. Ayuda y componentes</h2>
+<p>El botón <strong>?</strong> tiene: recorrido de bienvenida, este manual, <strong>Comprobar componentes</strong>, abrir la carpeta
+de datos y «Acerca de» (versión y licencias de las bibliotecas usadas).</p>
+<figure><img src="capturas/12-componentes.png" alt="Comprobar componentes"><figcaption>Comprueba Java, la carpeta de datos, Visual C++, el OCR y LibreOffice.</figcaption></figure>
+<p>Tus datos de la app (historial, recetas, firmas, configuración y registro de errores) están en
+<code>%APPDATA%\PDFListo</code>. El modo oscuro se activa con el botón de la luna.</p>
+<figure><img src="capturas/13-modo-oscuro.png" alt="Modo oscuro"><figcaption>Modo oscuro.</figcaption></figure>
+
+<h2 id="atajos">15. Atajos de teclado</h2>
+<table>
+  <tr><th>Atajo</th><th>Acción</th></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>Abrir PDF</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Guardar copia</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>W</kbd></td><td>Cerrar el documento</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Deshacer / rehacer</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>R</kbd> / <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>R</kbd></td><td>Rotar a la derecha / izquierda</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>D</kbd></td><td>Duplicar páginas elegidas</td></tr>
+  <tr><td><kbd>Supr</kbd></td><td>Eliminar páginas elegidas (en las miniaturas)</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>F</kbd></td><td>Buscar en el PDF (<kbd>Enter</kbd> siguiente, <kbd>Mayús</kbd>+<kbd>Enter</kbd> anterior)</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>+</kbd> / <kbd>Ctrl</kbd>+<kbd>-</kbd> / <kbd>Ctrl</kbd>+<kbd>0</kbd> / <kbd>Ctrl</kbd>+<kbd>1</kbd></td><td>Acercar / alejar / ajustar a ancho / 100 %</td></tr>
+  <tr><td><kbd>Re Pág</kbd> / <kbd>Av Pág</kbd>, <kbd>Ctrl</kbd>+<kbd>Inicio</kbd> / <kbd>Fin</kbd></td><td>Página anterior / siguiente, primera / última</td></tr>
+  <tr><td><kbd>F11</kbd></td><td>Pantalla completa</td></tr>
+</table>
+
+<h2 id="problemas">16. Problemas frecuentes</h2>
+<h3>Un PDF no abre</h3>
+<p>La app explica la causa probable: dañado, protegido con contraseña (te la pide) o no es un PDF. PDFBox intenta repararlo
+automáticamente; si no puede, prueba a abrirlo e imprimirlo como PDF desde otro lector.</p>
+<h3>El OCR no funciona</h3>
+<p>Abre <strong>Ayuda → Comprobar componentes</strong>. Si falta «Microsoft Visual C++», instala «Microsoft Visual C++
+Redistributable 2015-2022 (x64)», gratuito, de Microsoft. La versión instalada ya trae esas librerías.</p>
+<h3>La verificación dice «Revisar»</h3>
+<p>Lee el detalle: dice qué no se cumplió y en qué páginas. Por ejemplo, si el PDF ya tenía otra numeración o si la
+compresión no alcanzó el peso pedido. Puedes deshacer con <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</p>
+<h3>Comprimir casi no reduce el peso</h3>
+<p>Los PDF que son solo texto ya están optimizados; la compresión reduce sobre todo las imágenes.</p>
+<h3>Dónde está el registro de errores</h3>
+<p><strong>Ayuda → Abrir carpeta de datos → logs\pdflisto.log</strong>. No contiene tus documentos.</p>
+</main>
+</body>
+</html>

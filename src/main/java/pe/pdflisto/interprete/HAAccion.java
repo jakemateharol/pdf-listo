@@ -1,0 +1,5 @@
+package pe.pdflisto.interprete;
+
+public enum HAAccion {
+    UNIR, ROTAR, ELIMINAR, CAMBIAR_TAMANO, OCR, MARCA_AGUA, NUMERAR, LIMPIAR_METADATOS, QUITAR_CONTRASENA, COMPRIMIR
+}

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.ModalPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<!--
+  Ventana principal de PDF Listo.
+  Arriba: barra con el archivo abierto y los botones principales.
+  Izquierda: miniaturas y marcadores. Centro: visor. Derecha: Pedido / Tachado / Historial.
+-->
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:id="haRaiz"
+           fx:controller="pe.pdflisto.controller.HAMainController"
+           styleClass="app"
+           prefWidth="1360.0" prefHeight="840.0">
+
+    <BorderPane>
+        <!-- ===================== BARRA SUPERIOR ===================== -->
+        <top>
+            <HBox fx:id="haBarraSuperior" styleClass="barra-superior" spacing="12.0">
+                <ImageView fitWidth="32.0" fitHeight="32.0" smooth="true">
+                    <image><Image url="@../icono/pdflisto-64.png"/></image>
+                </ImageView>
+                <Label fx:id="haLblMarca" text="PDF Listo" styleClass="marca-titulo"/>
+                <Separator fx:id="haSepMarca" orientation="VERTICAL"/>
+                <!-- Nombre del archivo y, a su lado, el boton para cerrarlo (1.0.1: antes estaba suelto en la barra) -->
+                <HBox fx:id="haZonaArchivo" spacing="4.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" minWidth="150.0">
+                    <VBox spacing="1.0" minWidth="0.0">
+                        <Label fx:id="haLblArchivo" text="Ningún archivo abierto" styleClass="archivo-nombre"/>
+                        <Label fx:id="haLblDetalle" text="Abre un PDF o arrástralo a la ventana" styleClass="archivo-detalle"/>
+                    </VBox>
+                    <Button fx:id="haBtnCerrarDocumento" onAction="#haOnCerrarDocumento" styleClass="button-icon, flat" minWidth="-Infinity">
+                        <graphic><FontIcon iconLiteral="fth-x"/></graphic>
+                        <tooltip><Tooltip text="Cerrar este PDF (Ctrl+W)"/></tooltip>
+                    </Button>
+                </HBox>
+                <HBox fx:id="haIndicadorTrabajo" spacing="8.0" alignment="CENTER_LEFT" visible="false" managed="false"
+                      styleClass="indicador-trabajo">
+                    <VBox spacing="2.0" alignment="CENTER_LEFT">
+                        <Label fx:id="haLblTrabajo" text="Trabajando…" maxWidth="260.0"/>
+                        <ProgressBar fx:id="haBarraTrabajo" prefWidth="220.0" styleClass="barra-trabajo"/>
+                    </VBox>
+                    <Button fx:id="haBtnCancelarTrabajo" text="Cancelar" onAction="#haOnCancelarTrabajo" styleClass="small, danger, flat"/>
+                </HBox>
+                <Button fx:id="haBtnDeshacer" onAction="#haOnDeshacer" styleClass="button-icon, flat" disable="true">
+                    <graphic><FontIcon iconLiteral="fth-corner-up-left"/></graphic>
+                    <tooltip><Tooltip fx:id="haTtDeshacer" text="Deshacer (Ctrl+Z)"/></tooltip>
+                </Button>
+                <Button fx:id="haBtnRehacer" onAction="#haOnRehacer" styleClass="button-icon, flat" disable="true">
+                    <graphic><FontIcon iconLiteral="fth-corner-up-right"/></graphic>
+                    <tooltip><Tooltip fx:id="haTtRehacer" text="Rehacer (Ctrl+Y)"/></tooltip>
+                </Button>
+                <MenuButton fx:id="haMenuHerramientas" text="Herramientas" disable="true">
+                    <graphic><FontIcon iconLiteral="fth-tool"/></graphic>
+                    <tooltip><Tooltip text="Herramientas: unir, dividir, comprimir, numerar, OCR, facturas…"/></tooltip>
+                    <items>
+                        <MenuItem text="Unir PDF…" onAction="#haOnUnir">
+                            <graphic><FontIcon iconLiteral="fth-git-merge"/></graphic>
+                        </MenuItem>
+                        <MenuItem text="Dividir…" onAction="#haOnDividir">
+                            <graphic><FontIcon iconLiteral="fth-scissors"/></graphic>
+                        </MenuItem>
+                        <MenuItem text="Extraer páginas…" onAction="#haOnExtraer">
+                            <graphic><FontIcon iconLiteral="fth-external-link"/></graphic>
+                        </MenuItem>
+                        <SeparatorMenuItem/>
+                        <MenuItem text="Comprimir…" onAction="#haOnComprimir">
+                            <graphic><FontIcon iconLiteral="fth-minimize-2"/></graphic>
+                        </MenuItem>
+                        <MenuItem text="Numerar páginas…" onAction="#haOnNumerar">
+                            <graphic><FontIcon iconLiteral="fth-hash"/></graphic>
+                        </MenuItem>
+                        <MenuItem text="Marca de agua…" onAction="#haOnMarcaDeAgua">
+                            <graphic><FontIcon iconLiteral="fth-droplet"/></graphic>
+                        </MenuItem>
+                        <MenuItem text="Encabezado y pie…" onAction="#haOnEncabezado">
+                            <graphic><FontIcon iconLiteral="fth-align-center"/></graphic>
+                        </MenuItem>
+                        <MenuItem text="Tamaño de página…" onAction="#haOnTamano">
+                            <graphic><FontIcon iconLiteral="fth-maximize-2"/></graphic>
+                        </MenuItem>
+                        <SeparatorMenuItem/>
+                        <MenuItem text="Reconocer texto (OCR)…" onAction="#haOnOcr">
+                            <graphic><FontIcon iconLiteral="fth-file-text"/></graphic>
+                        </MenuItem>
+                        <MenuItem text="Leer facturas (QR) a Excel…" onAction="#haOnFacturas">
+                            <graphic><FontIcon iconLiteral="fth-grid"/></graphic>
+                        </MenuItem>
+                    </items>
+                </MenuButton>
+                <MenuButton fx:id="haMenuConvertir" text="Convertir">
+                    <graphic><FontIcon iconLiteral="fth-repeat"/></graphic>
+                    <tooltip><Tooltip text="Imágenes, texto o Word a PDF, y PDF a imágenes o texto"/></tooltip>
+                </MenuButton>
+                <ComboBox fx:id="haCmbDocumentos" promptText="Documentos abiertos" prefWidth="220.0"/>
+                <MenuButton fx:id="haBtnRecientes" text="Recientes" styleClass="flat">
+                    <graphic><FontIcon iconLiteral="fth-clock"/></graphic>
+                    <tooltip><Tooltip text="Archivos recientes"/></tooltip>
+                </MenuButton>
+                <Button fx:id="haBtnAbrir" text="Abrir PDF" onAction="#haOnAbrir" styleClass="accent">
+                    <graphic><FontIcon iconLiteral="fth-folder"/></graphic>
+                    <tooltip><Tooltip text="Abrir uno o varios PDF (Ctrl+O)"/></tooltip>
+                </Button>
+                <Button fx:id="haBtnGuardarCopia" text="Guardar copia" onAction="#haOnGuardarCopia">
+                    <graphic><FontIcon iconLiteral="fth-save"/></graphic>
+                    <tooltip><Tooltip text="Guardar como archivo nuevo; el original no se toca (Ctrl+S)"/></tooltip>
+                </Button>
+                <Button fx:id="haBtnTema" onAction="#haOnCambiarTema" styleClass="button-icon, flat">
+                    <graphic><FontIcon iconLiteral="fth-moon"/></graphic>
+                    <tooltip><Tooltip text="Cambiar entre modo claro y oscuro"/></tooltip>
+                </Button>
+                <MenuButton fx:id="haMenuAyuda" styleClass="button-icon, flat">
+                    <graphic><FontIcon iconLiteral="fth-help-circle"/></graphic>
+                    <tooltip><Tooltip text="Ayuda: bienvenida, manual, comprobar componentes, acerca de"/></tooltip>
+                </MenuButton>
+            </HBox>
+        </top>
+
+        <!-- ===================== COLUMNA IZQUIERDA ===================== -->
+        <left>
+            <VBox fx:id="haPanelIzquierdo" styleClass="panel-lateral, panel-izquierdo" prefWidth="224.0" minWidth="224.0">
+                <TabPane fx:id="tabsIzquierda" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <Tab text="Páginas">
+                        <VBox>
+                            <HBox fx:id="haHerramientasPaginas" styleClass="herramientas-paginas" spacing="0.0">
+                                <Button onAction="#haOnRotarIzquierda" styleClass="button-icon, flat">
+                                    <graphic><FontIcon iconLiteral="fth-rotate-ccw"/></graphic>
+                                    <tooltip><Tooltip text="Rotar a la izquierda (Ctrl+Mayús+R)"/></tooltip>
+                                </Button>
+                                <Button onAction="#haOnRotarDerecha" styleClass="button-icon, flat">
+                                    <graphic><FontIcon iconLiteral="fth-rotate-cw"/></graphic>
+                                    <tooltip><Tooltip text="Rotar a la derecha (Ctrl+R)"/></tooltip>
+                                </Button>
+                                <Button onAction="#haOnSubirPaginas" styleClass="button-icon, flat">
+                                    <graphic><FontIcon iconLiteral="fth-arrow-up"/></graphic>
+                                    <tooltip><Tooltip text="Mover hacia arriba (también puedes arrastrar)"/></tooltip>
+                                </Button>
+                                <Button onAction="#haOnBajarPaginas" styleClass="button-icon, flat">
+                                    <graphic><FontIcon iconLiteral="fth-arrow-down"/></graphic>
+                                    <tooltip><Tooltip text="Mover hacia abajo (también puedes arrastrar)"/></tooltip>
+                                </Button>
+                                <Button onAction="#haOnDuplicarPaginas" styleClass="button-icon, flat">
+                                    <graphic><FontIcon iconLiteral="fth-copy"/></graphic>
+                                    <tooltip><Tooltip text="Duplicar (Ctrl+D)"/></tooltip>
+                                </Button>
+                                <Button onAction="#haOnExtraer" styleClass="button-icon, flat">
+                                    <graphic><FontIcon iconLiteral="fth-external-link"/></graphic>
+                                    <tooltip><Tooltip text="Extraer a un PDF nuevo"/></tooltip>
+                                </Button>
+                                <Button onAction="#haOnEliminarPaginas" styleClass="button-icon, flat, danger">
+                                    <graphic><FontIcon iconLiteral="fth-trash-2"/></graphic>
+                                    <tooltip><Tooltip text="Eliminar (Supr)"/></tooltip>
+                                </Button>
+                            </HBox>
+                            <ListView fx:id="haListaMiniaturas" styleClass="lista-miniaturas" VBox.vgrow="ALWAYS"/>
+                        </VBox>
+                    </Tab>
+                    <Tab text="Marcadores">
+                        <StackPane>
+                            <TreeView fx:id="haArbolMarcadores" showRoot="false" styleClass="arbol-marcadores"/>
+                            <Label fx:id="haLblSinMarcadores" text="Este PDF no tiene marcadores."
+                                   styleClass="texto-tenue" wrapText="true"/>
+                        </StackPane>
+                    </Tab>
+                </TabPane>
+            </VBox>
+        </left>
+
+        <!-- ===================== CENTRO ===================== -->
+        <center>
+            <StackPane fx:id="centro" styleClass="centro">
+
+                <!-- Visor (visible cuando hay un documento) -->
+                <VBox fx:id="haVisorContenedor" visible="false">
+                    <HBox styleClass="barra-visor" spacing="6.0">
+                        <Button onAction="#haOnPaginaAnterior" styleClass="button-icon, flat">
+                            <graphic><FontIcon iconLiteral="fth-chevron-left"/></graphic>
+                            <tooltip><Tooltip text="Página anterior (RePág)"/></tooltip>
+                        </Button>
+                        <!-- minWidth -Infinity = nunca mas angosto que su tamano preferido: el «1 / 12» siempre se ve completo -->
+                        <TextField fx:id="haTxtPagina" onAction="#haOnIrAPagina" prefColumnCount="3" styleClass="campo-pagina" minWidth="-Infinity"/>
+                        <Label fx:id="haLblTotalPaginas" text="/ 0" styleClass="texto-tenue" minWidth="-Infinity"/>
+                        <Button onAction="#haOnPaginaSiguiente" styleClass="button-icon, flat">
+                            <graphic><FontIcon iconLiteral="fth-chevron-right"/></graphic>
+                            <tooltip><Tooltip text="Página siguiente (AvPág)"/></tooltip>
+                        </Button>
+                        <Separator orientation="VERTICAL"/>
+                        <Button onAction="#haOnAlejar" styleClass="button-icon, flat">
+                            <graphic><FontIcon iconLiteral="fth-zoom-out"/></graphic>
+                            <tooltip><Tooltip text="Alejar (Ctrl -)"/></tooltip>
+                        </Button>
+                        <Label fx:id="haLblZoom" text="100 %" styleClass="etiqueta-zoom" minWidth="52.0"/>
+                        <Button onAction="#haOnAcercar" styleClass="button-icon, flat">
+                            <graphic><FontIcon iconLiteral="fth-zoom-in"/></graphic>
+                            <tooltip><Tooltip text="Acercar (Ctrl +)"/></tooltip>
+                        </Button>
+                        <ToggleButton fx:id="haBtnAjustarAncho" onAction="#haOnAjustarAncho" selected="true" styleClass="button-icon" minWidth="-Infinity">
+                            <graphic><FontIcon iconLiteral="fth-maximize-2"/></graphic>
+                            <tooltip><Tooltip text="Ajustar a ancho: la página ocupa todo el ancho (Ctrl+0)"/></tooltip>
+                        </ToggleButton>
+                        <Button fx:id="haBtnPantallaCompleta" onAction="#haOnPantallaCompleta" styleClass="button-icon, flat">
+                            <graphic><FontIcon iconLiteral="fth-maximize"/></graphic>
+                            <tooltip><Tooltip text="Pantalla completa (F11)"/></tooltip>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="haTxtBuscar" onAction="#haOnBuscar" promptText="Buscar en el PDF (Ctrl+F)"
+                                   prefColumnCount="16" minWidth="110.0"/>
+                        <Label fx:id="haLblResultados" styleClass="texto-tenue" minWidth="70.0"/>
+                        <Button onAction="#haOnResultadoAnterior" styleClass="button-icon, flat">
+                            <graphic><FontIcon iconLiteral="fth-chevron-up"/></graphic>
+                            <tooltip><Tooltip text="Resultado anterior (Mayús+Enter)"/></tooltip>
+                        </Button>
+                        <Button onAction="#haOnResultadoSiguiente" styleClass="button-icon, flat">
+                            <graphic><FontIcon iconLiteral="fth-chevron-down"/></graphic>
+                            <tooltip><Tooltip text="Resultado siguiente (Enter)"/></tooltip>
+                        </Button>
+                    </HBox>
+                    <ScrollPane fx:id="haScrollVisor" styleClass="scroll-visor" VBox.vgrow="ALWAYS"
+                                pannable="false"/>
+                    <HBox styleClass="pie-visor">
+                        <Label fx:id="haLblPie" text="Página 1 de 1"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Pantalla de inicio (sin documento) -->
+                <VBox fx:id="haEstadoVacio" styleClass="estado-vacio" spacing="14.0" maxWidth="460.0"
+                      maxHeight="-Infinity">
+                    <StackPane styleClass="vacio-icono">
+                        <FontIcon iconLiteral="fth-upload"/>
+                    </StackPane>
+                    <Label text="Arrastra tus PDF aquí" styleClass="vacio-titulo"/>
+                    <Label text="o pulsa «Abrir PDF». Todo se procesa en tu computadora, sin internet, y el original nunca se modifica."
+                           styleClass="texto-tenue" wrapText="true"/>
+                    <Button text="Abrir PDF" onAction="#haOnAbrir" styleClass="accent">
+                        <graphic><FontIcon iconLiteral="fth-folder"/></graphic>
+                    </Button>
+                    <Label fx:id="haLblTituloRecientes" text="RECIENTES" styleClass="seccion-titulo"/>
+                    <VBox fx:id="haListaRecientesInicio" spacing="2.0"/>
+                </VBox>
+
+                <!-- Aviso al arrastrar archivos sobre la ventana -->
+                <StackPane fx:id="haCapaArrastre" styleClass="capa-arrastre" visible="false" mouseTransparent="true">
+                    <VBox spacing="10.0" alignment="CENTER">
+                        <FontIcon iconLiteral="fth-download"/>
+                        <Label text="Suelta los PDF para abrirlos" styleClass="vacio-titulo"/>
+                    </VBox>
+                </StackPane>
+            </StackPane>
+        </center>
+
+        <!-- ===================== PANEL DERECHO ===================== -->
+        <right>
+            <TabPane fx:id="haPanelDerecho" styleClass="panel-lateral, panel-derecho" prefWidth="350.0" minWidth="330.0"
+                     tabClosingPolicy="UNAVAILABLE">
+                <Tab text="Pedido">
+                    <graphic><FontIcon iconLiteral="fth-message-square"/></graphic>
+                    <ScrollPane fitToWidth="true" styleClass="scroll-panel">
+                        <VBox fx:id="haContenedorPedido" styleClass="panel-contenido" spacing="10.0"/>
+                    </ScrollPane>
+                </Tab>
+                <Tab text="Anotar">
+                    <graphic><FontIcon iconLiteral="fth-edit"/></graphic>
+                    <ScrollPane fitToWidth="true" styleClass="scroll-panel">
+                        <VBox fx:id="haContenedorAnotar" styleClass="panel-contenido" spacing="10.0"/>
+                    </ScrollPane>
+                </Tab>
+                <Tab text="Formulario">
+                    <graphic><FontIcon iconLiteral="fth-check-square"/></graphic>
+                    <ScrollPane fitToWidth="true" styleClass="scroll-panel">
+                        <VBox fx:id="haContenedorFormulario" styleClass="panel-contenido" spacing="10.0"/>
+                    </ScrollPane>
+                </Tab>
+                <Tab text="Entrega">
+                    <graphic><FontIcon iconLiteral="fth-package"/></graphic>
+                    <ScrollPane fitToWidth="true" styleClass="scroll-panel">
+                        <VBox fx:id="haContenedorEntrega" styleClass="panel-contenido" spacing="10.0"/>
+                    </ScrollPane>
+                </Tab>
+                <Tab text="Tachado">
+                    <graphic><FontIcon iconLiteral="fth-shield"/></graphic>
+                    <ScrollPane fitToWidth="true" styleClass="scroll-panel">
+                        <VBox fx:id="haContenedorTachado" styleClass="panel-contenido" spacing="10.0"/>
+                    </ScrollPane>
+                </Tab>
+                <Tab text="Historial">
+                    <graphic><FontIcon iconLiteral="fth-list"/></graphic>
+                    <VBox fx:id="haContenedorHistorial" styleClass="panel-contenido" spacing="8.0"/>
+                </Tab>
+            </TabPane>
+        </right>
+    </BorderPane>
+
+    <!-- Capas flotantes: panel, dialogos y avisos -->
+    <ModalPane fx:id="haModalPanel"/>
+    <ModalPane fx:id="haModalDialogo"/>
+    <VBox fx:id="haZonaNotificaciones" styleClass="zona-notificaciones" spacing="10.0"
+          pickOnBounds="false" alignment="BOTTOM_RIGHT" viewOrder="-100"
+          StackPane.alignment="BOTTOM_RIGHT" maxWidth="-Infinity" maxHeight="-Infinity"/>
+</StackPane>

@@ -1,0 +1,29 @@
+PDF Listo usa estas bibliotecas de código abierto. Todas funcionan dentro del
+equipo, sin internet. Gracias a sus autores.
+
+Biblioteca                         Para qué se usa                          Licencia
+---------------------------------  ---------------------------------------  ------------------------------
+Apache PDFBox 3.0                  Leer, dibujar y modificar PDF             Apache 2.0
+Tesseract OCR 5.4                  Reconocer texto en escaneos (OCR)        Apache 2.0
+  (incluye Leptonica)              Procesar imágenes para el OCR            BSD de 2 cláusulas
+Tess4J 5.13                        Conectar Java con Tesseract              Apache 2.0
+Datos tessdata_fast (spa, eng)     Idiomas del OCR                          Apache 2.0
+ZXing 3.5 (Google)                 Leer códigos QR de facturas              Apache 2.0
+OpenPDF                            Informes de verificación en PDF          LGPL 2.1 / MPL 2.0
+Apache POI 5.2                     Excel de facturas                        Apache 2.0
+JavaFX 21 (OpenJFX)                Ventanas y controles                     GPL 2 con excepción Classpath
+AtlantaFX 2.0                      Tema claro/oscuro                        MIT
+Ikonli + Feather Icons             Íconos                                   Apache 2.0 / MIT
+Spring Boot 3.3                    Organización interna de la app           Apache 2.0
+Hibernate ORM 6                    Acceso a la base de datos                LGPL 2.1
+SQLite + sqlite-jdbc               Base de datos local                      Dominio público / Apache 2.0
+JNA                                Llamar al motor de OCR                   Apache 2.0 / LGPL 2.1
+Lombok (solo al compilar)          Menos código repetido                    MIT
+Entorno de Java (OpenJDK)          Ejecutar la aplicación                   GPL 2 con excepción Classpath
+Microsoft Visual C++ Runtime       Librerías que necesita Tesseract         Licencia de redistribución de
+  (msvcp140, vcruntime140)                                                  Microsoft (gratuita)
+
+Los textos completos de cada licencia están en los sitios oficiales de cada proyecto
+(apache.org/licenses, opensource.org/licenses, gnu.org/licenses).
+
+PDF Listo no envía datos a ningún servidor.
